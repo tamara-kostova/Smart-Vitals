@@ -10,7 +10,7 @@ class VitalsRepository:
 
     async def create_table(self) -> None:
         create_table_query = """
-            CREATE TABLE IF NOT EXISTS vitals (
+            CREATE TABLE IF NOT EXISTS vitals_records (
                 id SERIAL PRIMARY KEY,
                 patient_id INT,
                 temperature FLOAT,
