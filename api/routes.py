@@ -1,9 +1,10 @@
 from datetime import datetime
+
 from fastapi import APIRouter, Depends
 
 from api.deps import get_vitals_repo
-from src.db.repository.vital_records_repository import VitalsRepository
 from src.db.models.vital_record import VitalsRecord
+from src.db.repository.vital_records_repository import VitalsRepository
 
 router = APIRouter()
 

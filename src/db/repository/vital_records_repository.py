@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
+
 from src.db.models.db_connection import TimescaleDBClient
 from src.db.models.vital_record import VitalsRecord
 
