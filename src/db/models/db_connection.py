@@ -1,6 +1,7 @@
-from typing import Any, Awaitable, Optional, Set, List
-import asyncpg
 import logging
+from typing import Any, Awaitable, List, Optional, Set
+
+import asyncpg
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -40,6 +41,14 @@ class TimescaleDBClient:
                     obj = await connection.fetchval(query, *values)
                     logger.info("Insert and fetch executed successfully.")
                     return obj
+
+    async def fetchone(self, query: str, values: Optional[List[Any]] = None) -> Optional[Any]:
+        async with asyncpg.create_pool(self.dsn, min_size=1, max_size=10) as pool:
+            async with pool.acquire() as connection:
+                async with connection.transaction():
+                    result = await connection.fetchrow(query, *(values or []))
+                    logger.info("Fetchone query executed successfully.")
+                    return result
 
     async def fetchall(self, query: str, values: Optional[List[Any]] = None):
         async with asyncpg.create_pool(self.dsn, min_size=1, max_size=10) as pool:

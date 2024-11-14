@@ -1,4 +1,5 @@
 from fastapi import Request
+
 from src.db.repository.patients_repository import PatientRepository
 from src.db.repository.vital_records_repository import VitalsRepository
 

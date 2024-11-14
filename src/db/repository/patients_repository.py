@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
+
 from src.db.models.db_connection import TimescaleDBClient
 from src.db.models.patient import Patient
 
@@ -24,6 +25,15 @@ class PatientRepository:
             );
         """
         await self.db_client.create_table(create_table_query)
+    
+    async def populate_if_empty(self) -> None:
+        check_query = "SELECT 1 FROM patients LIMIT 1;"
+        result = await self.db_client.fetch_one(check_query)
+        if result is None:
+            with open("src/db/scripts/POPULATE_PATIENTS.sql", "r") as f:
+                populate_script = f.read()
+            await self.db_client.execute_script(populate_script)
+            print("Populated")
         
     async def insert(
         self, patient: Patient, return_insert_value: bool = False
