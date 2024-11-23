@@ -110,3 +110,69 @@ class PatientRepository:
 
         result = await self.db_client.fetchall(query, values)
         return [Patient(**dict(row)) for row in result]
+
+    async def delete(self, patient_id: int) -> bool:
+        query = """
+                 UPDATE patients
+                 SET deleted = TRUE
+                 WHERE id = $1
+                 RETURNING id;
+             """
+        result = await self.db_client.insert(query, (patient_id,))
+        return bool(result)
+
+    async def activate(self, patient_id):
+        query = """
+                UPDATE patients
+                SET active = TRUE
+                WHERE id = $1 AND deleted = FALSE
+                RETURNING id;
+            """
+
+        result = await self.db_client.insert(query, (patient_id,))
+        return bool(result)
+
+    async def deactivate(self, patient_id):
+        query = """
+                   UPDATE patients
+                   SET active = FALSE
+                   WHERE id = $1 AND deleted = FALSE
+                   RETURNING id;
+               """
+
+        result = await self.db_client.insert(query, (patient_id,))
+        return bool(result)
+
+    async def update(
+            self, patient_id: int, updated_patient: Patient
+    ) -> bool:
+        # Query to update the patient's details
+        query = """
+            UPDATE patients
+            SET name = $1,
+                surname = $2,
+                gender = $3,
+                date_of_birth = $4,
+                age = $5,
+                embg = $6,
+                active = $7,
+                deleted = $8
+            WHERE id = $9 AND deleted = FALSE
+            RETURNING id;
+        """
+        # Values to be updated
+        values = [
+            updated_patient.name,
+            updated_patient.surname,
+            updated_patient.gender,
+            updated_patient.date_of_birth,
+            updated_patient.age,
+            updated_patient.embg,
+            updated_patient.active,
+            updated_patient.deleted,
+            patient_id,
+        ]
+
+        # Execute the update query and return the result
+        result = await self.db_client.insert(query, values)
+        return bool(result)
