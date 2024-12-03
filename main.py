@@ -1,30 +1,33 @@
-from contextlib import asynccontextmanager
 import os
+from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 
 from api import routes
-from src.db.scripts.populate_patients import populate_patients_if_empty
-from src.db.scripts.simulate_vitals import  simulate_patient, manage_simulations
+from services.scripts.simulate_vitals import (manage_simulations,
+                                              simulate_patient)
+from services.simulation_manager import SimulationManager
+from src.db.models.db_connection import TimescaleDBClient
 from src.db.repository.patients_repository import PatientRepository
 from src.db.repository.vital_records_repository import VitalsRepository
-from src.db.models.db_connection import TimescaleDBClient
+from src.db.scripts.populate_patients import populate_patients_if_empty
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    dsn = os.getenv('DSN')
-    app.state.db_client = TimescaleDBClient(
-        dsn=dsn
-    )
+    dsn = os.getenv("DSN")
+    app.state.db_client = TimescaleDBClient(dsn=dsn)
     app.state.patients_repo = PatientRepository(app.state.db_client)
     await app.state.patients_repo.create_table()
     await populate_patients_if_empty(patients_repo=app.state.patients_repo)
     app.state.vitals_repo = VitalsRepository(app.state.db_client)
     await app.state.vitals_repo.create_table()
-    await manage_simulations()
+    app.state.simulation_manager = SimulationManager(app.state.db_client)
+    await app.state.simulation_manager.start()
+
     yield
 
 

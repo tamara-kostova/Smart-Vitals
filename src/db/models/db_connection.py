@@ -42,7 +42,9 @@ class TimescaleDBClient:
                     logger.info("Insert and fetch executed successfully.")
                     return obj
 
-    async def fetchone(self, query: str, values: Optional[List[Any]] = None) -> Optional[Any]:
+    async def fetchone(
+        self, query: str, values: Optional[List[Any]] = None
+    ) -> Optional[Any]:
         async with asyncpg.create_pool(self.dsn, min_size=1, max_size=10) as pool:
             async with pool.acquire() as connection:
                 async with connection.transaction():
