@@ -1,9 +1,12 @@
 import asyncio
 import os
 from typing import Dict, Set
-from services.scripts.simulate_vitals import VitalRecordSimulator, simulate_patient
+
+from services.scripts.simulate_vitals import (VitalRecordSimulator,
+                                              simulate_patient)
 from src.db.models.db_connection import TimescaleDBClient
 from src.db.repository.vital_records_repository import VitalsRepository
+
 
 class SimulationManager:
     def __init__(self, db_client: TimescaleDBClient):
@@ -16,7 +19,7 @@ class SimulationManager:
     async def start(self):
         if self.main_task is None:
             self.main_task = asyncio.create_task(self._manage_simulations())
-            
+
     async def stop(self):
         if self.main_task:
             for event in self.stop_events.values():
@@ -37,11 +40,11 @@ class SimulationManager:
                     "SELECT id, age, active FROM patients WHERE active = true"
                 )
                 active_patient_ids = {p["id"] for p in active_patients}
-                
+
                 await self._cleanup_inactive_patients(active_patient_ids)
-                
+
                 await self._start_new_patient_simulations(active_patients)
-                
+
                 await asyncio.sleep(60)
             except asyncio.CancelledError:
                 break

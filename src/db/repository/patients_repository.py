@@ -25,7 +25,7 @@ class PatientRepository:
             );
         """
         await self.db_client.create_table(create_table_query)
-    
+
     async def populate_if_empty(self) -> None:
         check_query = "SELECT 1 FROM patients LIMIT 1;"
         result = await self.db_client.fetch_one(check_query)
@@ -34,7 +34,7 @@ class PatientRepository:
                 populate_script = f.read()
             await self.db_client.execute_script(populate_script)
             print("Populated")
-        
+
     async def insert(
         self, patient: Patient, return_insert_value: bool = False
     ) -> Optional[int]:
@@ -143,9 +143,7 @@ class PatientRepository:
         result = await self.db_client.insert(query, (patient_id,))
         return bool(result)
 
-    async def update(
-            self, patient_id: int, updated_patient: Patient
-    ) -> bool:
+    async def update(self, patient_id: int, updated_patient: Patient) -> bool:
         # Query to update the patient's details
         query = """
             UPDATE patients

@@ -1,11 +1,12 @@
-import os
 import asyncio
-from datetime import datetime, timezone
+import os
 import random
+from datetime import datetime, timezone
 
-from src.db.models.vital_record import VitalsRecord
 from src.db.models.db_connection import TimescaleDBClient
+from src.db.models.vital_record import VitalsRecord
 from src.db.repository.vital_records_repository import VitalsRepository
+
 
 class VitalRecordSimulator:
     def __init__(self, patient_id: int, age: int):
@@ -24,19 +25,23 @@ class VitalRecordSimulator:
         self.heart_rate += random.gauss(0, 2)
         systolic = random.gauss(0, 2)
         diastolic = random.gauss(0, 1)
-        self.blood_pressure = (max(80, min(self.blood_pressure[0] + systolic, 200)), max(40, min(self.blood_pressure[1] + diastolic, 120)))
+        self.blood_pressure = (
+            max(80, min(self.blood_pressure[0] + systolic, 200)),
+            max(40, min(self.blood_pressure[1] + diastolic, 120)),
+        )
         self.oxygen_saturation += random.gauss(0, 0.5)
 
     def to_vitals_record(self) -> VitalsRecord:
         return VitalsRecord(
             patient_id=self.patient_id,
-            temperature = round(self.temperature, 1),
-            heart_rate = round(self.heart_rate),
-            blood_pressure_systolic = round(self.blood_pressure[0]),
-            blood_pressure_diastolic = round(self.blood_pressure[1]),
-            oxygen_saturation = round(self.oxygen_saturation),
-            timestamp = datetime.now(timezone.utc),
+            temperature=round(self.temperature, 1),
+            heart_rate=round(self.heart_rate),
+            blood_pressure_systolic=round(self.blood_pressure[0]),
+            blood_pressure_diastolic=round(self.blood_pressure[1]),
+            oxygen_saturation=round(self.oxygen_saturation),
+            timestamp=datetime.now(timezone.utc),
         )
+
     def simulate_heart_rate(self):
         if self.age >= 18:
             return random.randint(60, 100)
@@ -61,7 +66,10 @@ class VitalRecordSimulator:
             diastolic = random.randint(50, 70)
         return systolic, diastolic
 
-async def simulate_patient(patient: VitalRecordSimulator, repo: VitalsRepository, stop_event: asyncio.Event):
+
+async def simulate_patient(
+    patient: VitalRecordSimulator, repo: VitalsRepository, stop_event: asyncio.Event
+):
     while not stop_event.is_set():
         patient.update_vitals()
         vitals_record = patient.to_vitals_record()
@@ -69,8 +77,9 @@ async def simulate_patient(patient: VitalRecordSimulator, repo: VitalsRepository
         print(f"Inserted vitals for patient {patient.patient_id}")
         await asyncio.sleep(60)
 
+
 async def manage_simulations():
-    dsn = os.getenv('DSN')
+    dsn = os.getenv("DSN")
     db_client = TimescaleDBClient(dsn=dsn)
     vitals_repository = VitalsRepository(db_client)
 
@@ -78,14 +87,15 @@ async def manage_simulations():
     stop_events = {}
 
     while True:
-        active_patients = await db_client.fetchall("SELECT id, age, active FROM patients WHERE active = true")
+        active_patients = await db_client.fetchall(
+            "SELECT id, age, active FROM patients WHERE active = true"
+        )
         active_patient_ids = {p["id"] for p in active_patients}
 
         for patient_id in list(stop_events.keys()):
             if patient_id not in active_patient_ids:
                 stop_events[patient_id].set()
                 del stop_events[patient_id]
-
 
         for patient in active_patients:
             patient_id = patient["id"]
@@ -94,9 +104,12 @@ async def manage_simulations():
                 stop_event = asyncio.Event()
                 patients[patient_id] = simulator
                 stop_events[patient_id] = stop_event
-                asyncio.create_task(simulate_patient(simulator, vitals_repository, stop_event))
+                asyncio.create_task(
+                    simulate_patient(simulator, vitals_repository, stop_event)
+                )
 
         await asyncio.sleep(60)
+
 
 if __name__ == "__main__":
     asyncio.run(manage_simulations())
