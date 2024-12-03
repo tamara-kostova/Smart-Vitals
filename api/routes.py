@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from api.deps import get_patients_repo, get_vitals_repo
 from src.db.models.patient import Patient
@@ -112,8 +113,12 @@ async def create_vitals(
 @router.get("/patients/{patient_id}/vitals/stats")
 async def get_patient_stats(
     patient_id: int,
-    from_date: datetime,
-    to_date: datetime,
+        from_date: Optional[datetime] = Query(None, description="Start date for the stats (ISO 8601 format)"),
+        to_date: Optional[datetime] = Query(None, description="End date for the stats (ISO 8601 format)"),
     vitals_repo: VitalsRepository = Depends(get_vitals_repo),
 ):
+    if from_date is None:
+        from_date = datetime.now() - timedelta(minutes=5)
+    if to_date is None:
+        to_date = datetime.now()
     return await vitals_repo.get_patient_vitals_stats(patient_id, from_date, to_date)
