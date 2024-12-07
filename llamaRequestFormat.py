@@ -1,21 +1,58 @@
-import requests
-url = "http://localhost:4444/v1/chat/completions"
-data = {
-    "model": "llama-3.2-3b-instruct",
-    "messages": [
-        {
-            "role": "user",
-            "content": "If we work in a team,me 2 girls and another boy.Every one of us gets 4 dollars.How much are we paid as a team?Just the result."
-        }
-    ],
-    "temperature": 0.7,
-    "max_tokens": 100
-}
-response = requests.post(url, json=data)
+import re
+from operator import truediv
 
-# Print the response
-if response.status_code == 200:
-    print("Response:", response.json())
-else:
-    print("Failed with status code:", response.status_code)
-    print("Error:", response.text)
+import requests
+def askForStatus(message):
+    url = "http://100.75.172.46:4444/v1/chat/completions"
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "model": "llama-3.2-3b-instruct",
+        "messages": [
+            {
+                "role": "user",
+                "content":"Give an opinion about health status only in one word. "
+                "Options: Good, Bad, Very Bad, Excellent, Dangerous, Dead. "
+                "Parameters: avg_temperature: 36.58, min_temperature: 36.5, max_temperature: 36.7, "
+                "avg_heart_rate: 72.4, min_heart_rate: 71, max_heart_rate: 73, "
+                "avg_oxygen_saturation: 98, min_oxygen_saturation: 98, max_oxygen_saturation: 98."
+                          "JUST THE STATUS!!!"
+            }
+        ],
+        "temperature": 0.8,
+        "max_tokens": 100
+    }
+    response = requests.post(url, headers=headers, json=data)
+
+    # Print the response
+    if response.status_code == 200:
+        # Extract the health status word from the response
+        content = response.json()
+        content=content["choices"][0]
+        message = content["message"]["content"]
+        return message
+        # match = re.search(r"\*\*(\w+)\*\*", message)
+        # if match:
+        #     health_status = match.group(1)  # Extracts the word inside **
+        #     print(health_status)
+        #     return health_status
+
+        # Extract the first word (expected health status)
+        # health_status = content.split(".")[0].strip()
+
+    else:
+       return "UNKNOWN"
+def helperResponse():
+    message = (
+        "Give an opinion about health status only in one word. "
+        "Options: Good, Bad, Very Bad, Excellent, Dangerous, Dead. "
+        "Parameters: avg_temperature: 36.58, min_temperature: 36.5, max_temperature: 36.7, "
+        "avg_heart_rate: 72.4, min_heart_rate: 71, max_heart_rate: 73, "
+        "avg_oxygen_saturation: 98, min_oxygen_saturation: 98, max_oxygen_saturation: 98."
+    )
+    response = askForStatus(message)
+    if (response in ["Good", "Bad", "Very Bad", "Excellent", "Dangerous", "Dead"]):
+        return [True,response]
+    return False
