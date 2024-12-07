@@ -125,10 +125,18 @@ async def get_patient_stats(
     return await vitals_repo.get_patient_vitals_stats(patient_id, from_date, to_date)
 
 @router.get("/patients/{patient_id}/status")
-def get_patient_stats():
+async def get_patient_stats( patient_id: int,
+        from_date: Optional[datetime] = Query(None, description="Start date for the stats (ISO 8601 format)"),
+        to_date: Optional[datetime] = Query(None, description="End date for the stats (ISO 8601 format)"),
+    vitals_repo: VitalsRepository = Depends(get_vitals_repo),):
+    if from_date is None:
+        from_date = datetime.now() - timedelta(minutes=5)
+    if to_date is None:
+        to_date = datetime.now()
+    vitals=await vitals_repo.get_patient_vitals_stats(patient_id, from_date, to_date)
     cnt = 0
     while cnt < 3:
-        result = llamaRequestFormat.helperResponse()
+        result = llamaRequestFormat.helperResponse(vitals)
 
         if result:
             return result[1]
