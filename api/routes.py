@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 from typing import Optional
-
+import requests
 from fastapi import APIRouter, Depends, HTTPException, Query
 
+import llamaRequestFormat
 from api.deps import get_patients_repo, get_vitals_repo
 from src.db.models.patient import Patient
 from src.db.models.vital_record import VitalsRecord
@@ -122,3 +123,27 @@ async def get_patient_stats(
     if to_date is None:
         to_date = datetime.now()
     return await vitals_repo.get_patient_vitals_stats(patient_id, from_date, to_date)
+
+@router.get("/patients/{patient_id}/status")
+async def get_patient_stats( patient_id: int,
+        from_date: Optional[datetime] = Query(None, description="Start date for the stats (ISO 8601 format)"),
+        to_date: Optional[datetime] = Query(None, description="End date for the stats (ISO 8601 format)"),
+    vitals_repo: VitalsRepository = Depends(get_vitals_repo),):
+    if from_date is None:
+        from_date = datetime.now() - timedelta(minutes=5)
+    if to_date is None:
+        to_date = datetime.now()
+    vitals=await vitals_repo.get_patient_vitals_stats(patient_id, from_date, to_date)
+    cnt = 0
+    while cnt < 3:
+        result = llamaRequestFormat.helperResponse(vitals)
+
+        if result:
+            return result[1]
+        cnt += 1
+    return "UNKNOWN"
+
+
+
+
+
