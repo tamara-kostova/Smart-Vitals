@@ -1,10 +1,10 @@
 from datetime import datetime, timedelta
 from typing import Optional
-import requests
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-import llamaRequestFormat
+from services import llamaRequestFormat
 from api.deps import get_patients_repo, get_vitals_repo
+from services.manualStatus import findHealthStatusBackup
 from src.db.models.patient import Patient
 from src.db.models.vital_record import VitalsRecord
 from src.db.repository.patients_repository import PatientRepository
@@ -134,6 +134,7 @@ async def get_patient_stats( patient_id: int,
     if to_date is None:
         to_date = datetime.now()
     vitals=await vitals_repo.get_patient_vitals_stats(patient_id, from_date, to_date)
+
     cnt = 0
     while cnt < 3:
         result = llamaRequestFormat.helperResponse(vitals)
@@ -141,7 +142,7 @@ async def get_patient_stats( patient_id: int,
         if result:
             return result[1]
         cnt += 1
-    return "UNKNOWN"
+    return findHealthStatusBackup(vitals)
 
 
 
