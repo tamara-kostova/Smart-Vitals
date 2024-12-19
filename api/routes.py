@@ -29,6 +29,9 @@ async def all_patients(
 ):
     return await patients_repo.fetch(patient_id)
 
+@router.get("/patients/{patient_embg}/patient_details")
+async def patient_by_embg(patient_embg: str, patients_repo: PatientRepository = Depends(get_patients_repo)):
+    return await patients_repo.fetch(patient_embg)
 
 @router.post("/patients/store/")
 async def store_patients(
