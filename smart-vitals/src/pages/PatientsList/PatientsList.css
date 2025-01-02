@@ -8,8 +8,6 @@ body {
   background-repeat: no-repeat;
 }
 
-
-
 .container {
   max-width: 800px;
   width: 100%;
@@ -20,7 +18,6 @@ body {
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   background: linear-gradient(to bottom right, #74ebd5, #acb6e5);
-
   overflow: hidden;
   overflow-y: scroll;
 }

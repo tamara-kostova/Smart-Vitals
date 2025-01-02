@@ -6,17 +6,16 @@
   font-family: Arial, sans-serif;
   width: 80%;
   margin: auto;
-  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .table-header {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
-  position: sticky; /* Make the header sticky */
-  top: 0; /* Stick to the top */
-  background: inherit; /* Match the background with the container */
-  z-index: 1; /* Ensure it stays above the rows */
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 1;
 }
 
 .table-row {
@@ -39,8 +38,7 @@
   text-decoration: none;
     color:darkslategrey;
 }
-
-.row-cell2 {
+  .row-cell2 {
 
   margin-left: 12%;
   flex: 1;
@@ -68,8 +66,8 @@
   top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60px;   /* Adjust the size of the circle */
-  height: 60px;  /* Adjust the size of the circle */
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-color: white;
   display: flex;
@@ -78,35 +76,6 @@
   z-index: -1;
 }
 
-/* Style for patient ID */
-.patient-id {
-  position: relative;
-  display: inline-block;
-  color: black; /* Black color for ID */
-  font-weight: bold;
-  text-decoration: none; /* Remove underline */
-}
-
-.patient-id::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid white; /* White circle around the ID */
-  z-index: -1;
-}
-
-/* Style for patient name */
-.patient-name {
-  color: black; /* Black color for name */
-  text-decoration: none; /* Remove underline */
-}
-
-/* Status button styles */
 .status-button {
   padding: 8px 16px;
   border: none;
@@ -128,7 +97,6 @@
   transform: scale(1.05);
 }
 
-/* Deactivate status button */
 .status-button.deactive-btn {
   background-color: #ff6f61;
   color: white;
@@ -139,7 +107,6 @@
   transform: scale(1.05);
 }
 
-/* Health score styles */
 .health-score.normal {
   background-color: #ffd700;
   color: #333;
@@ -153,4 +120,35 @@
 .health-score.unknown {
   background-color: #b0bec5;
   color: white;
+}
+
+.patient-name {
+  color: black;
+  text-decoration: none;
+}
+
+.patient-id {
+  position: relative;
+  display: inline-block;
+  color: black;
+  font-weight: bold;
+    z-index: 1;
+  text-decoration: none;
+}
+
+.patient-id::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  z-index: -1;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+  align-items: center;
 }

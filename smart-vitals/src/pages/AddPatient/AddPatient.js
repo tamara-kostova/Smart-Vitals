@@ -7,7 +7,7 @@ const API_BASE_URL = "http://localhost:8000";
 
 const AddPatient = () => {
   const navigate = useNavigate();
-  
+
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
@@ -44,7 +44,7 @@ const AddPatient = () => {
         embg,
       };
       const response = await axios.post(`${API_BASE_URL}/patients/store/`, patient);
-      alert(`Patient created successfully with ID: ${response.data.patient_id}`);
+      //alert(`Patient created successfully with ID: ${response.data.patient_id}`);
       navigate("/patients");
     } catch (error) {
       console.error("Error creating patient:", error);
@@ -108,18 +108,9 @@ const AddPatient = () => {
             className="form-input"
           />
         </div>
-        <div className="button-group">
-          <button type="submit" className="submit-button">
-            Add Patient
-          </button>
-          <button
-            type="button"
-            className="cancel-button"
-            onClick={() => navigate("/patients")}
-          >
-            Cancel
-          </button>
-        </div>
+        <button type="submit" className="submit-button">
+          Add Patient
+        </button>
       </form>
     </div>
   );
