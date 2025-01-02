@@ -41,8 +41,6 @@ const AddPatient = () => {
         embg,
       };
       const response = await axios.post(`${API_BASE_URL}/patients/store/`, patient);
-      // alert(`Patient created successfully with ID: ${response.data.patient_id}`);
-      console.log("success");
       window.location.href = "/patients";
     } catch (error) {
       console.error("Error creating patient:", error);

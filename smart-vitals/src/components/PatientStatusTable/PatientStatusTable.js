@@ -13,13 +13,12 @@ const PatientStatusTable = () => {
     axios
       .get(`${API_BASE_URL}/patients/general/`)
       .then((response) => {
-        // You can transform the data here if needed
         const updatedPatients = response.data.map((patient) => ({
           ...patient,
           status: patient.active ? "Active" : "Inactive"  // Set status based on isActive
         }));
-        setPatients(updatedPatients); // Set the patients with updated status
-        setLoading(false);  // Set loading to false after the data is fetched
+        setPatients(updatedPatients); 
+        setLoading(false);  
       })
       .catch((error) => {
         console.error("Error fetching patients:", error);

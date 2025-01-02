@@ -655,7 +655,7 @@ const PatientDetails = () => {
             </div>
         </>
       ) : (
-        <p className="loading-text">Loading patient details...</p>
+          <p className="loading-text">Loading patient details...</p>
       )}
     </div>
   );
