@@ -109,7 +109,7 @@ async def manage_simulations():
                     simulate_patient(simulator, vitals_repository, stop_event)
                 )
 
-        await asyncio.sleep(60)
+        await asyncio.sleep(100)
 
 
 if __name__ == "__main__":
