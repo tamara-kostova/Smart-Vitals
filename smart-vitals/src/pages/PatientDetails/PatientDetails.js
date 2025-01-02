@@ -8,7 +8,7 @@ const API_BASE_URL = "http://localhost:8000";
 const PatientDetails = () => {
   const { patient_id } = useParams();
   const [patient, setPatient] = useState(null);
-  const [vitals, setVitals] = useState([]);
+  const [vitals, setVitals] = useState(null);
 
   useEffect(() => {
     axios
@@ -36,7 +36,7 @@ const PatientDetails = () => {
 
   return (
     <div className="patient-details-container">
-      {patient ? (
+      {patient && vitals ? (
           <div>
             <h2 className="patient-name">{patient.name}</h2>
             <div className="patient-info">
@@ -47,23 +47,23 @@ const PatientDetails = () => {
             <h3 className="vitals-heading">Vitals</h3>
             <ul className="vitals-list">
               <li><strong>Average Heart Rate:</strong> <span
-                  className="vital-value">{vitals.avg_heart_rate.toFixed(2)}</span></li>
+                  className="vital-value">{vitals.avg_heart_rate?.toFixed(2)}</span></li>
               <li><strong>Maximum Heart Rate:</strong> <span
-                  className="vital-value">{vitals.max_heart_rate.toFixed(2)}</span></li>
+                  className="vital-value">{vitals.max_heart_rate?.toFixed(2)}</span></li>
               <li><strong>Minimum Heart Rate:</strong> <span
-                  className="vital-value">{vitals.min_heart_rate.toFixed(2)}</span></li>
+                  className="vital-value">{vitals.min_heart_rate?.toFixed(2)}</span></li>
               <li><strong>Average Oxygen Saturation:</strong> <span
-                  className="vital-value">{vitals.avg_oxygen_saturation.toFixed(2)}</span></li>
+                  className="vital-value">{vitals.avg_oxygen_saturation?.toFixed(2)}</span></li>
               <li><strong>Maximum Oxygen Saturation:</strong> <span
-                  className="vital-value">{vitals.max_oxygen_saturation.toFixed(2)}</span></li>
+                  className="vital-value">{vitals.max_oxygen_saturation?.toFixed(2)}</span></li>
               <li><strong>Minimum Oxygen Saturation:</strong> <span
-                  className="vital-value">{vitals.min_oxygen_saturation.toFixed(2)}</span></li>
+                  className="vital-value">{vitals.min_oxygen_saturation?.toFixed(2)}</span></li>
               <li><strong>Average Temperature:</strong> <span
-                  className="vital-value">{vitals.avg_temperature.toFixed(3)}</span></li>
+                  className="vital-value">{vitals.avg_temperature?.toFixed(3)}</span></li>
               <li><strong>Maximum Temperature:</strong> <span
-                  className="vital-value">{vitals.max_temperature.toFixed(3)}</span></li>
+                  className="vital-value">{vitals.max_temperature?.toFixed(3)}</span></li>
               <li><strong>Minimum Temperature:</strong> <span
-                  className="vital-value">{vitals.min_temperature.toFixed(3)}</span></li>
+                  className="vital-value">{vitals.min_temperature?.toFixed(3)}</span></li>
             </ul>
 
 

@@ -27,11 +27,17 @@ async def all_patients(patients_repo: PatientRepository = Depends(get_patients_r
 async def all_patients(
     patient_id: int, patients_repo: PatientRepository = Depends(get_patients_repo)
 ):
-    return await patients_repo.fetch(patient_id)
+    patient_db_record = await patients_repo.fetch(patient_id)
+    if len(patient_db_record) == 0:
+        return None
+    return patient_db_record[0]
 
 @router.get("/patients/{patient_embg}/patient_details")
 async def patient_by_embg(patient_embg: str, patients_repo: PatientRepository = Depends(get_patients_repo)):
-    return await patients_repo.fetch(patient_embg)
+    patient_db_record = await patients_repo.fetch(patient_embg)
+    if len(patient_db_record) == 0:
+        return None
+    return patient_db_record[0]
 
 @router.post("/patients/store/")
 async def store_patients(
@@ -49,7 +55,10 @@ async def store_patients(
 async def edit_patient(
     patient_id: int, patients_repo: PatientRepository = Depends(get_patients_repo)
 ):
-    return await patients_repo.fetch(patient_id)
+    patient_db_record =  await patients_repo.fetch(patient_id)
+    if len(patient_db_record) == 0:
+        return None
+    return patient_db_record[0]
 
 
 @router.post("/patients/{patient_id}/edit/")
@@ -71,7 +80,6 @@ async def delete_patients(
     patients_repo: PatientRepository = Depends(get_patients_repo),
 ):
     try:
-        # Call the repository's delete method
         result = await patients_repo.delete(patient_id)
 
         if result:
@@ -86,7 +94,6 @@ async def activate_patient(
     patients_repo: PatientRepository = Depends(get_patients_repo),
 ):
     try:
-        # Call the repository method to activate the patient
         await patients_repo.activate(patient_id)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error activating patient: {e}")
@@ -98,7 +105,6 @@ async def activate_patient(
     patients_repo: PatientRepository = Depends(get_patients_repo),
 ):
     try:
-        # Call the repository method to activate the patient
         await patients_repo.deactivate(patient_id)
 
     except Exception as e:

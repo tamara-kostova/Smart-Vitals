@@ -52,10 +52,10 @@ class PatientRepository:
 
         query = """
             INSERT INTO patients (
-                id, name, surname, gender, date_of_birth, age, 
+                name, surname, gender, date_of_birth, age, 
                 embg, active, deleted, created_at
             )
-            VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         """
 
         if return_insert_value:
@@ -109,8 +109,7 @@ class PatientRepository:
         query += ";"
 
         result = await self.db_client.fetchall(query, values)
-        # return [Patient(**dict(row)) for row in result]
-        return result
+        return [Patient(**dict(row)) for row in result]
 
     async def delete(self, patient_id: int) -> bool:
         query = """
