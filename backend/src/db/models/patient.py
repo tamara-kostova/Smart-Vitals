@@ -1,10 +1,11 @@
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel
 
 
 class Patient(BaseModel):
-    id: int
+    id: Optional[int] = None
     name: str
     surname: str
     gender: str

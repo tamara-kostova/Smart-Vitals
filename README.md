@@ -18,6 +18,8 @@ sudo docker compose --env-file secrets.env up
 
 Go to http://0.0.0.0:8000/docs
 
+# Frontend packages
+
 npm install axios
 npm install react-router-dom
 npm install web-vitals
