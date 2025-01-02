@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class VitalsRecord(BaseModel):
+    id: int
     patient_id: int
     temperature: float
     heart_rate: int
