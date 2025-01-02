@@ -40,11 +40,11 @@ class VitalsRepository:
 
         query = """
             INSERT INTO vitals_records (
-                patient_id, temperature, heart_rate,
+                id, patient_id, temperature, heart_rate,
                 blood_pressure_systolic, blood_pressure_diastolic,
                 oxygen_saturation, timestamp
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7)
         """
 
         if return_insert_value:

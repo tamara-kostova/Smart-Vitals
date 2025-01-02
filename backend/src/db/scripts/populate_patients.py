@@ -20,6 +20,7 @@ async def generate_patients(num_patients: int):
         gender = faker.random_element(["Male", "Female"])
         dob = faker.date_of_birth(minimum_age=5, maximum_age=80)
         patient = Patient(
+            id=0, # placeholder
             name=(
                 faker.first_name_male()
                 if gender == "Male"

@@ -52,10 +52,10 @@ class PatientRepository:
 
         query = """
             INSERT INTO patients (
-                name, surname, gender, date_of_birth, age, 
+                id, name, surname, gender, date_of_birth, age, 
                 embg, active, deleted, created_at
             )
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9)
         """
 
         if return_insert_value:

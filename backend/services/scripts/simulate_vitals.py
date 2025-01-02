@@ -33,6 +33,7 @@ class VitalRecordSimulator:
 
     def to_vitals_record(self) -> VitalsRecord:
         return VitalsRecord(
+            id=0, # placeholder
             patient_id=self.patient_id,
             temperature=round(self.temperature, 1),
             heart_rate=round(self.heart_rate),
