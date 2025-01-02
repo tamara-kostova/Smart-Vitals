@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Path
 
 from services import llamaRequestFormat
 from api.deps import get_patients_repo, get_vitals_repo
@@ -147,7 +147,70 @@ async def get_patient_stats( patient_id: int,
         cnt += 1
     return findHealthStatusBackup(vitals)
 
+@router.get("/patients/{patient_id}/vitals/temperature")
+async def get_patient_temperature(
+    patient_id: int,
+    vitals_repo: VitalsRepository = Depends(get_vitals_repo),
+):
+    try:
+        vitals = await vitals_repo.get_patient_temperature(patient_id)
+        if not vitals:
+            raise HTTPException(status_code=404, detail="No records found for temperature")
+        return vitals
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching temperatures: {e}")
 
+@router.get("/patients/{patient_id}/vitals/saturation")
+async def get_patient_saturation(
+    patient_id: int,
+    vitals_repo: VitalsRepository = Depends(get_vitals_repo),
+):
+    try:
+        vitals = await vitals_repo.get_patient_saturation(patient_id)
+        if not vitals:
+            raise HTTPException(status_code=404, detail="No records found for saturation")
+        return vitals
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching saturation: {e}")
+
+@router.get("/patients/{patient_id}/vitals/heartrate")
+async def get_patient_heart_rate(
+    patient_id: int,
+    vitals_repo: VitalsRepository = Depends(get_vitals_repo),
+):
+    try:
+        vitals = await vitals_repo.get_patient_heart_rate(patient_id)
+        if not vitals:
+            raise HTTPException(status_code=404, detail="No records found for heart rate")
+        return vitals
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching heart rates: {e}")
+
+@router.get("/patients/{patient_id}/vitals/systolic")
+async def get_patient_systolic_pressure(
+    patient_id: int,
+    vitals_repo: VitalsRepository = Depends(get_vitals_repo),
+):
+    try:
+        vitals = await vitals_repo.get_patient_systolic_pressure(patient_id)
+        if not vitals:
+            raise HTTPException(status_code=404, detail="No records found for systolic pressure")
+        return vitals
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching systolic: {e}")
+
+@router.get("/patients/{patient_id}/vitals/diastolic")
+async def get_patient_diastolic_pressure(
+    patient_id: int,
+    vitals_repo: VitalsRepository = Depends(get_vitals_repo),
+):
+    try:
+        vitals = await vitals_repo.get_patient_diastolic_pressure(patient_id)
+        if not vitals:
+            raise HTTPException(status_code=404, detail="No records found for diastolic pressure")
+        return vitals
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching diastolic: {e}")
 
 
 
