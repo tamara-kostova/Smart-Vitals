@@ -109,8 +109,7 @@ class PatientRepository:
         query += ";"
 
         result = await self.db_client.fetchall(query, values)
-        # return [Patient(**dict(row)) for row in result]
-        return result
+        return [Patient(**dict(row)) for row in result]
 
     async def delete(self, patient_id: int) -> bool:
         query = """
