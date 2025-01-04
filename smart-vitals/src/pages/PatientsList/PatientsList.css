@@ -2,10 +2,18 @@ body {
   margin: 0;
   font-family: "Roboto", sans-serif;
   color: #fff;
+  background-image: url('bg.jpg'); /* Replace with your image path */
+  background-size: cover; /* Ensures the image covers the entire body */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
 }
 
+
+
 .container {
-  max-width: 800px;
+  max-width: 800px; /* Set a specific width like before */
+  width: 100%; /* Ensures it adjusts to the container's parent */
+  height: 70vh; /* Allow vertical scrolling */
   margin: 50px auto;
   padding: 20px;
   background: rgba(255, 255, 255, 0.1);
@@ -13,6 +21,19 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   background: linear-gradient(to bottom right, #74ebd5, #acb6e5);
 
+  /* Making the container scrollable */
+  overflow: hidden; /* Hide the scrollbar */
+  overflow-y: scroll; /* Allow vertical scrolling */
+}
+
+/* This will hide the scrollbar but still allow scrolling */
+.container::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: transparent;
 }
 
 h2 {
