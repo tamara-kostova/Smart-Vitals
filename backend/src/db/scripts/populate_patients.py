@@ -1,10 +1,9 @@
 import asyncio
 import logging
-from datetime import date, datetime
+from datetime import datetime
 
 from faker import Faker
 
-from src.db.models.db_connection import TimescaleDBClient
 from src.db.models.patient import Patient
 from src.db.repository.patients_repository import PatientRepository
 
