@@ -3,7 +3,7 @@ import os
 import random
 from datetime import datetime, timezone
 
-from src.db.models.db_connection import TimescaleDBClient
+from src.db.db_connection import TimescaleDBClient
 from src.db.models.vital_record import VitalsRecord
 from src.db.repository.vital_records_repository import VitalsRepository
 
