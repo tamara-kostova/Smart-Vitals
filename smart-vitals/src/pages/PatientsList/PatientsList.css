@@ -102,3 +102,63 @@ h2 {
   outline: none;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
+
+.patient-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.patient-item:hover {
+  transform: translateX(5px);
+}
+
+.patient-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  color: #212529;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.patient-button:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #e9ecef;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  color: #495057;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.edit-button:hover {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+}
+
+.edit-button span {
+  font-weight: 500;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
