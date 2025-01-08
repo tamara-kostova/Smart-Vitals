@@ -76,7 +76,7 @@ async def simulate_patient(
         vitals_record = patient.to_vitals_record()
         await repo.insert(patient.patient_id, vitals_record)
         print(f"Inserted vitals for patient {patient.patient_id}")
-        await asyncio.sleep(60)
+        await asyncio.sleep(5)
 
 
 async def manage_simulations():

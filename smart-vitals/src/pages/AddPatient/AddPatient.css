@@ -32,20 +32,20 @@ label {
   margin-bottom: 8px;
 }
 .form-group {
-  margin-bottom: 1rem; /* Add some spacing between fields */
-  display: flex;       /* Align label and input fields */
+  margin-bottom: 1rem;
+  display: flex;
   flex-direction: column;
 }
 
 
 .form-input {
-  width: 100%;          /* Ensure inputs stretch to full width of parent */
-  /*max-width: 400px;     !* Set a maximum width for uniformity *!*/
-  padding: 0.5rem;      /* Add padding for better appearance */
-  border: 1px solid #ccc; /* Add a border */
-  border-radius: 4px;   /* Optional: Round the corners slightly */
-  font-size: 1rem;      /* Ensure consistent font size */
-  box-sizing: border-box; /* Include padding and border in width */
+  width: 100%;
+  /*max-width: 400px;    */
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
 
 .form-input:focus {
@@ -68,4 +68,24 @@ label {
 .submit-button:hover {
   background-color: #45a049;
   transform: scale(1.05);
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.cancel-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
 }

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import "./AddPatient.css";
+import { useParams, useNavigate } from "react-router-dom";
+import "./EditPatient.css";
 
 const API_BASE_URL = "http://localhost:8000";
 
-const AddPatient = () => {
+const EditPatient = () => {
+  const { patientId } = useParams();
   const navigate = useNavigate();
   
   const [name, setName] = useState("");
@@ -15,11 +16,33 @@ const AddPatient = () => {
   const [embg, setEmbg] = useState("");
   const [age, setAge] = useState(null);
 
+  useEffect(() => {
+    const fetchPatient = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/patients/${patientId}/edit/`);
+        const patient = response.data;
+        
+        setName(patient.name);
+        setSurname(patient.surname);
+        setDateOfBirth(patient.date_of_birth.split('T')[0]);
+        setGender(patient.gender);
+        setEmbg(patient.embg);
+        setAge(patient.age);
+      } catch (error) {
+        console.error("Error fetching patient:", error);
+        alert("Error loading patient data");
+      }
+    };
+
+    fetchPatient();
+  }, [patientId]);
+
   const calculateAge = (dob) => {
     const birthDate = new Date(dob);
     const today = new Date();
     let calculatedAge = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
+    
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
       calculatedAge--;
     }
@@ -43,17 +66,19 @@ const AddPatient = () => {
         age,
         embg,
       };
-      const response = await axios.post(`${API_BASE_URL}/patients/store/`, patient);
-      alert(`Patient created successfully with ID: ${response.data.patient_id}`);
+
+      await axios.post(`${API_BASE_URL}/patients/${patientId}/edit/`, patient);
+      alert("Patient updated successfully");
       navigate("/patients");
     } catch (error) {
-      console.error("Error creating patient:", error);
+      console.error("Error updating patient:", error);
+      alert("Error updating patient");
     }
   };
 
   return (
     <div className="add-patient-container">
-      <h2 className="add-patient-title">Add New Patient</h2>
+      <h2 className="add-patient-title">Edit Patient</h2>
       <form onSubmit={handleSubmit} className="add-patient-form">
         <div className="form-group">
           <label>Name:</label>
@@ -110,10 +135,10 @@ const AddPatient = () => {
         </div>
         <div className="button-group">
           <button type="submit" className="submit-button">
-            Add Patient
+            Update Patient
           </button>
-          <button
-            type="button"
+          <button 
+            type="button" 
             className="cancel-button"
             onClick={() => navigate("/patients")}
           >
@@ -125,4 +150,4 @@ const AddPatient = () => {
   );
 };
 
-export default AddPatient;
+export default EditPatient;
