@@ -6,9 +6,19 @@
   font-family: Arial, sans-serif;
   width: 80%;
   margin: auto;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.table-header,
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: sticky; /* Make the header sticky */
+  top: 0; /* Stick to the top */
+  background: inherit; /* Match the background with the container */
+  z-index: 1; /* Ensure it stays above the rows */
+}
+
 .table-row {
   display: flex;
   justify-content: space-between;
@@ -20,21 +30,61 @@
   font-weight: bold;
   text-align: center;
 }
-
 .row-cell {
   flex: 1;
   text-align: center;
   padding: 10px;
   border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+    color:darkslategrey;
 }
 
-.patient-id {
-  color: #f06292;
+.row-cell2 {
+
+  margin-left: 12%;
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+    color:darkslategrey;
+}
+.row-cell1 {
+  margin-left: 12%;
+  color: red;
   font-weight: bold;
   position: relative;
   display: inline-block;
   padding: 10px;
   z-index: 1;
+  text-decoration: none;
+}
+
+.row-cell1::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;   /* Adjust the size of the circle */
+  height: 60px;  /* Adjust the size of the circle */
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+/* Style for patient ID */
+.patient-id {
+  position: relative;
+  display: inline-block;
+  color: black; /* Black color for ID */
+  font-weight: bold;
+  text-decoration: none; /* Remove underline */
 }
 
 .patient-id::before {
@@ -43,19 +93,21 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;   /* Adjust the size of the circle */
-  height: 40px;  /* Adjust the size of the circle */
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 0;
+  border: 2px solid white; /* White circle around the ID */
+  z-index: -1;
+}
+
+/* Style for patient name */
+.patient-name {
+  color: black; /* Black color for name */
+  text-decoration: none; /* Remove underline */
 }
 
 /* Status button styles */
 .status-button {
-
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
@@ -102,4 +154,3 @@
   background-color: #b0bec5;
   color: white;
 }
-
