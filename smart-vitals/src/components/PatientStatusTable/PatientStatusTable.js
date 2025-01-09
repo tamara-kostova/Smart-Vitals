@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
 import "./PatientStatusTable.css";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 const API_BASE_URL = 'http://localhost:8000';
 
 const PatientStatusTable = () => {
   const [patients, setPatients] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/patients/general/`);
-        console.log("Server response:", response.data);
-        setPatients(response.data);
-      } catch (error) {
+   useEffect(() => {
+    axios
+      .get(`${API_BASE_URL}/patients/general/`)
+      .then((response) => {
+        const updatedPatients = response.data.map((patient) => ({
+          ...patient,
+          status: patient.active ? "Active" : "Inactive"  // Set status based on isActive
+        }));
+        setPatients(updatedPatients);
+        setLoading(false);
+      })
+      .catch((error) => {
         console.error("Error fetching patients:", error);
-      }
-    };
-
-    fetchPatients();
+        setLoading(false);  // Even on error, stop loading
+      });
   }, []);
 
-//   const toggleStatus = (id) => {
-//   setPatients((prevPatients) =>
-//     prevPatients.map((patient) =>
-//       patient.id === id
-//         ? { ...patient, active: !patient.active }
-//         : patient
-//     )
-//   );
-// };
+  useEffect(() => {
+    console.log("Fetched patients:", patients);
+  }, [patients]);
+
   const toggleStatus = async (id, currentStatus) => {
   try {
     let endpoint = '';
@@ -62,6 +62,10 @@ const PatientStatusTable = () => {
   }
 };
 
+  if (loading) {
+    return <div>Loading patients...</div>;
+  }
+
   return (
     <div className="table-container">
       <div className="table-header">
@@ -69,37 +73,47 @@ const PatientStatusTable = () => {
         <div className="header-cell">Status</div>
         <div className="header-cell">LLM Health Score</div>
       </div>
-      {patients.map((patient) => (
-          <div className="table-row" key={patient.id}>
-            <div className="row-cell patient-id">{patient.id}</div>
-            {/*<h1>{patient.id}</h1>*/}
-            <div
-                className={`row-cell status ${patient.active ? "active" : "deactive"}`}
-            >
-              <button
-                  className={`status-button ${patient.active ? "active-btn" : "deactive-btn"}`}
-                  onClick={() => toggleStatus(patient.id,patient.active)}
+      {patients.length > 0 ? (
+        patients.map((patient) => (
+            <div className="table-row" key={patient.id}>
+              {/*<div className="row-cell patient-id" style={{visibility: "visible"}}>*/}
+              {/*  {patient.id}*/}
+              {/*</div>*/}
+              <Link to={`/patients/${patient.id}/general`} className="patient-id row-cell">
+                <div className="row-cell patient-id" style={{visibility: "visible"}}>
+                  {patient.id}
+                </div>
+              </Link>
+              <div
+                  className={`row-cell status ${patient.active ? "active" : "deactive"}`}
               >
-                {patient.active ? "Active" : "Deactivated"}
-              </button>
-            </div>
+                <button
+                    className={`status-button ${patient.active ? "active-btn" : "deactive-btn"}`}
+                    onClick={() => toggleStatus(patient.id, patient.active)}
+                >
+                  {patient.active ? "Active" : "Deactivated"}
+                </button>
+              </div>
+              <div
+                  className={`row-cell health-score ${
+                      patient.healthScore === "Normal"
+                          ? "normal"
+                          : patient.healthScore === "At Risk"
+                              ? "at-risk"
+                              : "unknown"
+                  }`}
+              >
+                {patient.healthScore || "No score"}
+              </div>
 
-
-            <div
-                className={`row-cell health-score ${
-                    patient.healthScore === "Normal"
-                        ? "normal"
-                        : patient.healthScore === "At Risk"
-                            ? "at-risk"
-                            : "unknown"
-                }`}
-            >
-              {patient.healthScore}
             </div>
-          </div>
-      ))}
+        ))
+      ) : (
+          <p>No patients found.</p>
+      )}
     </div>
   );
 };
+
 
 export default PatientStatusTable;
