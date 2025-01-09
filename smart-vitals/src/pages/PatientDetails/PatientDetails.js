@@ -30,7 +30,7 @@ const PatientDetails = () => {
     setLoadingScore(true);
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/patients/${patient_id}/status`
+        `${API_BASE_URL}/patients/${patient_id}/opinion`
       );
       setHealthScore(response.data);
     } catch (error) {
