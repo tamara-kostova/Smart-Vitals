@@ -21,7 +21,24 @@
   background-repeat: no-repeat;
   color: white;
 }
+/*.search-bar {*/
+/*  width: 100%;*/
+/*  padding: 15px 20px;*/
+/*  font-size: 1rem;*/
+/*  border: 2px solid #ccc;*/
+/*  border-radius: 25px; !* Makes the search bar rounded *!*/
+/*  outline: none;*/
+/*  transition: border-color 0.3s ease;*/
+/*}*/
+/*.search-container*/
+/*{*/
+/*      width: 75%;*/
+/*      border-radius: ;*/
+/*}*/
 
+/*.search-bar:focus {*/
+/*  border-color: #007bff; !* Change border color on focus *!*/
+/*}*/
 .home-title {
   font-size: 4rem;
   margin-bottom: 1rem;
