@@ -175,8 +175,8 @@ const PatientDetails = () => {
     axios
       .get(`${API_BASE_URL}/patients/${patient_id}/general/`)
       .then((response) => {
-        setPatient(response.data[0]);
-        setIsActive(response.data[0].active);
+        setPatient(response.data);
+        setIsActive(response.data.active);
       })
       .catch((error) => console.error("Error fetching patient details:", error));
 
@@ -555,7 +555,7 @@ const PatientDetails = () => {
 
   return (
       <div className="patient-details-container">
-          {patient ? (
+          {patient && vitals ? (
               <>
                   <div className="patient-header">
                       <div className="patient-photo">
@@ -595,7 +595,7 @@ const PatientDetails = () => {
                                   <div className="vital-circle"></div>
                                   <div className="vital-name">Heart Rate</div>
                                   <div className="vital-value-box">
-                                      <span className="vital-value">{vitals.avg_heart_rate}</span>
+                                      <span className="vital-value">{vitals.avg_heart_rate?.toFixed(2)}</span>
                                       <span className="vital-metric">bpm</span>
                                   </div>
                               </div>
@@ -604,7 +604,7 @@ const PatientDetails = () => {
                                   <div className="vital-name">Oxygen Saturation</div>
                                   <div className="vital-value-box">
                     <span className="vital-value">
-                      {vitals.avg_oxygen_saturation}
+                      {vitals.avg_oxygen_saturation?.toFixed(2)}
                     </span>
                                       <span className="vital-metric">  % </span>
                                   </div>
@@ -613,7 +613,7 @@ const PatientDetails = () => {
                                   <div className="vital-circle"></div>
                                   <div className="vital-name">Temperature</div>
                                   <div className="vital-value-box">
-                                      <span className="vital-value">{vitals.avg_temperature}</span>
+                                      <span className="vital-value">{vitals.avg_temperature?.toFixed(2)}</span>
                                       <span className="vital-metric">C</span>
                                   </div>
                               </div>
@@ -621,7 +621,7 @@ const PatientDetails = () => {
                                   <div className="vital-circle"></div>
                                   <div className="vital-name">Systolic Pressure</div>
                                   <div className="vital-value-box">
-                                      <span className="vital-value">{vitals.avg_blood_pressure_systolic}</span>
+                                      <span className="vital-value">{vitals.avg_blood_pressure_systolic?.toFixed(2)}</span>
                                       <span className="vital-metric">bpm</span>
                                   </div>
                               </div>
@@ -629,7 +629,7 @@ const PatientDetails = () => {
                                   <div className="vital-circle"></div>
                                   <div className="vital-name">Diastolic Pressure</div>
                                   <div className="vital-value-box">
-                                      <span className="vital-value">{vitals.avg_blood_pressure_diastolic}</span>
+                                      <span className="vital-value">{vitals.avg_blood_pressure_diastolic?.toFixed(2)}</span>
                                       <span className="vital-metric">bpm</span>
                                   </div>
                               </div>

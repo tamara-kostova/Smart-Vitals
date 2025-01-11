@@ -108,9 +108,18 @@ const AddPatient = () => {
             className="form-input"
           />
         </div>
-        <button type="submit" className="submit-button">
-          Add Patient
-        </button>
+        <div className="button-group">
+          <button type="submit" className="submit-button">
+            Add Patient
+          </button>
+          <button
+            type="button"
+            className="cancel-button"
+            onClick={() => navigate("/patients")}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -2,8 +2,7 @@ import asyncio
 import os
 from typing import Dict, Set
 
-from services.scripts.simulate_vitals import (VitalRecordSimulator,
-                                              simulate_patient)
+from services.scripts.simulate_vitals import VitalRecordSimulator, simulate_patient
 from src.db.db_connection import TimescaleDBClient
 from src.db.repository.vital_records_repository import VitalsRepository
 

@@ -139,7 +139,9 @@ class VitalsRepository:
             results = await self.db_client.fetchall(query, values)
             return results
         except Exception as e:
-            logging.error(f"Error fetching temperature records for patient_id={patient_id}: {e}")
+            logging.error(
+                f"Error fetching temperature records for patient_id={patient_id}: {e}"
+            )
             raise
 
     async def get_patient_heart_rate(self, patient_id: int):
@@ -157,7 +159,9 @@ class VitalsRepository:
             results = await self.db_client.fetchall(query, values)
             return results
         except Exception as e:
-            logging.error(f"Error fetching heart rate records for patient_id={patient_id}: {e}")
+            logging.error(
+                f"Error fetching heart rate records for patient_id={patient_id}: {e}"
+            )
             raise
 
     async def get_patient_systolic_pressure(self, patient_id: int):
@@ -175,7 +179,9 @@ class VitalsRepository:
             results = await self.db_client.fetchall(query, values)
             return results
         except Exception as e:
-            logging.error(f"Error fetching blood pressure systolic records for patient_id={patient_id}: {e}")
+            logging.error(
+                f"Error fetching blood pressure systolic records for patient_id={patient_id}: {e}"
+            )
             raise
 
     async def get_patient_diastolic_pressure(self, patient_id: int):
@@ -193,7 +199,9 @@ class VitalsRepository:
             results = await self.db_client.fetchall(query, values)
             return results
         except Exception as e:
-            logging.error(f"Error fetching blood pressure diastolic records for patient_id={patient_id}: {e}")
+            logging.error(
+                f"Error fetching blood pressure diastolic records for patient_id={patient_id}: {e}"
+            )
             raise
 
     async def get_patient_saturation(self, patient_id: int):
@@ -211,6 +219,7 @@ class VitalsRepository:
             results = await self.db_client.fetchall(query, values)
             return results
         except Exception as e:
-            logging.error(f"Error fetching oxygen saturation records for patient_id={patient_id}: {e}")
+            logging.error(
+                f"Error fetching oxygen saturation records for patient_id={patient_id}: {e}"
+            )
             raise
-

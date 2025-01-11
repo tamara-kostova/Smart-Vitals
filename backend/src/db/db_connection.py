@@ -5,6 +5,7 @@ import asyncpg
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 class TimescaleDBClient:
     def __init__(self, dsn) -> None:
         self.dsn = dsn
@@ -12,14 +13,12 @@ class TimescaleDBClient:
 
     async def initialize(self) -> None:
         if not self.pool:
-            self.pool = await asyncpg.create_pool(
-                self.dsn,
-                min_size=1,
-                max_size=10
-            )
+            self.pool = await asyncpg.create_pool(self.dsn, min_size=1, max_size=10)
             async with self.pool.acquire() as connection:
                 async with connection.transaction():
-                    await connection.execute("CREATE EXTENSION IF NOT EXISTS timescaledb;")
+                    await connection.execute(
+                        "CREATE EXTENSION IF NOT EXISTS timescaledb;"
+                    )
                     logger.info("TimescaleDB extension initialized successfully")
 
     async def cleanup(self) -> None:
