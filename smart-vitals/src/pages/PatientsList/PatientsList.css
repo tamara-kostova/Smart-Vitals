@@ -1,0 +1,164 @@
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  height: 70vh;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom right, #74ebd5, #acb6e5);
+
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.container::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.patient-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.patient-list li {
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.patient-link {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.add-patient-link {
+  display: block;
+  text-align: center;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  max-width: 200px;
+}
+
+.add-patient-link:hover {
+  background-color: #45a049;
+  text-decoration: none;
+}
+
+.patient-button {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  border: none;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-align: left;
+}
+
+.patient-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #000;
+  transform: scale(1.05);
+}
+
+.patient-button:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.patient-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.patient-item:hover {
+  transform: translateX(5px);
+}
+
+.patient-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  color: #212529;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.patient-button:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #e9ecef;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  color: #495057;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.edit-button:hover {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+}
+
+.edit-button span {
+  font-weight: 500;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

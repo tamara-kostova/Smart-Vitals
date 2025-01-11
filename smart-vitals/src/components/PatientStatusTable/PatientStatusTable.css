@@ -1,0 +1,156 @@
+.table-container {
+  background: linear-gradient(135deg, #91eae4, #86a8e7, #7f7fd5);
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  font-family: Arial, sans-serif;
+  width: 80%;
+  margin: auto;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: sticky; /* Make the header sticky */
+  top: 0; /* Stick to the top */
+  background: inherit; /* Match the background with the container */
+  z-index: 1; /* Ensure it stays above the rows */
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.header-cell {
+  flex: 1;
+  font-weight: bold;
+  text-align: center;
+}
+.row-cell {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+    color:darkslategrey;
+}
+
+.row-cell2 {
+
+  margin-left: 12%;
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+    color:darkslategrey;
+}
+.row-cell1 {
+  margin-left: 12%;
+  color: red;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.row-cell1::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;   /* Adjust the size of the circle */
+  height: 60px;  /* Adjust the size of the circle */
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
+
+/* Style for patient ID */
+.patient-id {
+  position: relative;
+  display: inline-block;
+  color: black; /* Black color for ID */
+  font-weight: bold;
+  text-decoration: none; /* Remove underline */
+}
+
+.patient-id::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white; /* White circle around the ID */
+  z-index: -1;
+}
+
+/* Style for patient name */
+.patient-name {
+  color: black; /* Black color for name */
+  text-decoration: none; /* Remove underline */
+}
+
+/* Status button styles */
+.status-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Active status button */
+.status-button.active-btn {
+  background-color: #00d084;
+  color: white;
+}
+
+.status-button.active-btn:hover {
+  background-color: #00b06b;
+  transform: scale(1.05);
+}
+
+/* Deactivate status button */
+.status-button.deactive-btn {
+  background-color: #ff6f61;
+  color: white;
+}
+
+.status-button.deactive-btn:hover {
+  background-color: #e55a50;
+  transform: scale(1.05);
+}
+
+/* Health score styles */
+.health-score.normal {
+  background-color: #ffd700;
+  color: #333;
+}
+
+.health-score.at-risk {
+  background-color: #ff4500;
+  color: white;
+}
+
+.health-score.unknown {
+  background-color: #b0bec5;
+  color: white;
+}

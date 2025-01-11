@@ -1,0 +1,115 @@
+.patient-details-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 15px;
+  background: linear-gradient(to bottom right, #74ebd5, #acb6e5);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
+}
+
+.patient-name {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.patient-info {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button {
+  display: block;
+  margin: 20px auto;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff4d4d;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.delete-button:hover {
+  background-color: #ff1a1a;
+  transform: scale(1.05);
+}
+
+.vitals-heading {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.vitals-list {
+  list-style-type: none;
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
+}
+
+.vitals-list li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.vitals-list li strong {
+  font-weight: bold;
+  color: #fff;
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.vital-value {
+  float: right;
+  text-align: center;
+  display: inline-block;
+  min-width: 80px;
+  background-color: white;
+  color: #d36f6f;
+  border-radius: 12px;
+  padding: 5px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.generate-health-score-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.generate-health-score-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.health-score-container {
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
