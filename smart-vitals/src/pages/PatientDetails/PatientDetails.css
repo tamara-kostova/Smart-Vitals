@@ -9,9 +9,22 @@
   font-family: "Roboto", sans-serif;
 }
 
+.patient-header {
+  display: flex;
+  align-items: center;
+}
+
+.patient-photo img {
+  width: 217px;
+  height: 400px;
+  flex: 1;
+  margin-left: 80px;
+  background: transparent;
+}
+
 .patient-name {
   text-align: center;
-  font-size: 2rem;
+  font-size: 5rem;
   margin-bottom: 20px;
   color: #fff;
 }
@@ -19,11 +32,14 @@
 .patient-info {
   color: #fff;
   font-size: 1.2rem;
+  margin: 0;
   margin-bottom: 20px;
+  margin-left: 150px;
   background: rgba(0, 0, 0, 0.2);
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 360px;
 }
 
 .delete-button {
@@ -33,7 +49,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #fff;
-  background-color: #ff4d4d;
+  background-color: red;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -59,7 +75,8 @@
   color: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-right: 5px;
 }
 
 .vitals-list li {
@@ -81,13 +98,94 @@
 .vital-value {
   float: right;
   text-align: center;
-  display: inline-block;
-  min-width: 80px;
+  display: block;
+  min-width: 100px;
   background-color: white;
-  color: #d36f6f;
+  color: red;
   border-radius: 12px;
   padding: 5px 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  margin-right: 5px;
+  margin-left: 20px;
+}
+
+.vitals-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.vitals-left {
+  flex: 1;
+}
+
+.vitals-right {
+  flex: 1;
+}
+
+.vital-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.vital-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  margin-right: 10px;
+}
+
+.vital-name {
+  margin-right: 10px;
+}
+
+.vital-value-box {
+  display: flex;
+  flex-direction: row;
+  margin-left: 50px;
+  align-items: flex-start;
+}
+
+.vital-metric {
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.vitals-charts {
+  list-style-type: none;
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-left: 15px;
+}
+img {
+    width: 217px;
+    height: 457px;
+}
+
+.chart-container {
+  margin-bottom: 20px;
+  text-align: center;
+  width: 250px;
+  height: 250px;
+  padding: 10px;
+}
+
+.vitals-list {
+  list-style-type: none;
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-right: 5px;
 }
 
 .generate-health-score-button {
@@ -100,11 +198,6 @@
   margin-top: 15px;
 }
 
-.generate-health-score-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
 .health-score-container {
   margin-top: 20px;
   background-color: #f9f9f9;
@@ -112,4 +205,28 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+}
+.generate-health-score-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.deactivate-button {
+  display: block;
+  margin: 20px auto;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: darkgoldenrod;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 100px;
+}
+
+.deactivate-button:hover {
+  background-color: #ff1a1a;
+  transform: scale(1.05);
 }
