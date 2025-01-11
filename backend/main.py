@@ -7,8 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 
 from api import routes
-from services.scripts.simulate_vitals import (manage_simulations,
-                                              simulate_patient)
 from fastapi.staticfiles import StaticFiles
 from services.simulation_manager import SimulationManager
 from src.db.db_connection import TimescaleDBClient
@@ -33,7 +31,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-app.mount("/public", StaticFiles(directory="public"), name='public')
+# app.mount("/public", StaticFiles(directory="public"), name='public')
 app.add_middleware(GZipMiddleware, minimum_size=500)
 app.include_router(routes.router)
 app.add_middleware(
