@@ -31,7 +31,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-# app.mount("/public", StaticFiles(directory="public"), name='public')
+app.mount("/public", StaticFiles(directory="public"), name='public')
 app.add_middleware(GZipMiddleware, minimum_size=500)
 app.include_router(routes.router)
 app.add_middleware(
