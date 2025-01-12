@@ -553,6 +553,13 @@ const PatientDetails = () => {
   },
 });
 
+const formatDateOfBirth = (dob) => {
+  const date = new Date(dob);
+  const options = { day: '2-digit', month: 'long', year: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+};
+
+
   return (
       <div className="patient-details-container">
           {patient && vitals ? (
@@ -573,7 +580,7 @@ const PatientDetails = () => {
                               <strong>Gender:</strong> {patient.gender}
                           </p>
                           <p>
-                              <strong>Date of Birth:</strong> {patient.date_of_birth}
+                              <strong>Date of Birth:</strong> {formatDateOfBirth(patient.date_of_birth)}
                           </p>
                           <div>
                               <button
